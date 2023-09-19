@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from datetime import datetime, timedelta
-from api.models import db, User, Package
+from api.models import db, User, Package, Reservation
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -65,4 +65,28 @@ def handle_packages(user_id):
         db.session.add(package)
         db.session.commit()
         return jsonify(package.serialize()), 200
-    
+
+@api.route('/packages/<int:package_id>', methods=['PUT'])
+def handle_package(package_id):
+    if request.method == 'PUT':
+        body = request.get_json()
+        package = Package.query.get(package_id)
+        package.used_sessions = body['usedSessions']
+        package.is_paid = body['isPaid']
+        package.is_active = body['isActive']
+        db.session.commit()
+        return jsonify(package.serialize()), 200
+
+@api.route('/new-reservation', methods=['POST'])
+def handle_new_reservation():
+    if request.method == 'POST':
+        body = request.get_json()
+        reservation = Reservation(
+            time_slot=body['timeSlot'],
+            type=body['type'],
+            date=body['date'],
+            user_id=body['userId'],
+            package_id=body['packageId'])
+        db.session.add(reservation)
+        db.session.commit()
+        return jsonify(reservation.serialize()), 200

@@ -19,19 +19,6 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Office(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    office_type = db.Column(db.String(120), unique=False, nullable=False)
-
-    def __repr__(self):
-        return f'<Office {self.id}>'
-    
-    def serialize(self):
-        return {
-            "id": self.id,
-            "officeType": self.office_type
-        }
-
 class Package(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Float, unique=False, nullable=False)
@@ -64,10 +51,7 @@ class Reservation(db.Model):
     time_slot = db.Column(db.Integer, unique=False, nullable=False)
     type = db.Column(db.String(120), unique=False, nullable=False)
     date = db.Column(db.DateTime, unique=False, nullable=False)
-    is_reserved = db.Column(db.Boolean(), unique=False, nullable=False)
-    is_paid = db.Column(db.Boolean(), unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    office_id = db.Column(db.Integer, db.ForeignKey('office.id'), nullable=False)
     package_id = db.Column(db.Integer, db.ForeignKey('package.id'), nullable=False)
 
     def __repr__(self):
@@ -85,3 +69,5 @@ class Reservation(db.Model):
             "officeId": self.office_id,
             "packageId": self.package_id
         }
+    
+    
