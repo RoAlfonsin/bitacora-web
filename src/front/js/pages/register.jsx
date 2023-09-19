@@ -1,13 +1,40 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVerify, setPasswordVerify] = useState("");
+    const navigate = useNavigate();
 
     const submitHandler = (e) => {
         e.preventDefault();
+        if (password !== passwordVerify) {
+            alert("Passwords don't match");
+            return;
+        }
+        if (email === "" || password === "") {
+            alert("Email and password are required");
+            return;
+        }
+        const url = process.env.BACKEND_URL + "/api/users";
+        const body = { email, password };
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+        };
+        fetch(url, options)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.errors) {
+                    alert(data.errors);
+                } else {
+                    alert("User created");
+                    navigate("/login");
+                }
+            });
     }
 
     return (
