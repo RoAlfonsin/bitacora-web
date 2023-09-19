@@ -37,7 +37,7 @@ export const Navbar = () => {
 	}
 
 	return (
-		<nav className="navbar navbar-expand-lg navbar-light bg-light">
+		<nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
 			<div className="container-fluid">
 				<Link className="navbar-brand" to="/">
 					Bitacora
