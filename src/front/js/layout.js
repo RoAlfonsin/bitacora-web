@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BackendURL } from "./component/backendURL";
 
+import { Navbar } from "./component/navbar.jsx";
 import { Home } from "./pages/home";
 import { Register } from "./pages/register.jsx";
 import { Login } from "./pages/login.jsx";
@@ -17,7 +18,7 @@ const Layout = () => {
   return (
     <>
       <BrowserRouter basename={basename}>
-        {/*Navbar*/}
+        <Navbar />
         <Routes>
           <Route element={<Home />} path="/" />
           <Route element={<h1>This is calendar</h1>} path="/calendar" />
