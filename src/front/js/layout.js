@@ -5,6 +5,7 @@ import { BackendURL } from "./component/backendURL";
 import { Navbar } from "./component/navbar.jsx";
 import { AuthProvider } from "./component/authProvider.jsx";
 import { Home } from "./pages/home";
+import { Packages } from "./pages/packages.jsx";
 import { Register } from "./pages/register.jsx";
 import { Login } from "./pages/login.jsx";
 import injectContext from "./store/appContext";
@@ -24,7 +25,7 @@ const Layout = () => {
           <Route element={<AuthProvider> <Home /> </AuthProvider>} path="/" />
           <Route element={<AuthProvider> <h1>This is calendar</h1> </AuthProvider>} path="/calendar" />
           <Route element={<AuthProvider> <h1>This is reservations</h1> </AuthProvider>} path="/reservations" />
-          <Route element={<AuthProvider> <h1>This is packages</h1> </AuthProvider>} path="/packages" />
+          <Route element={<AuthProvider> <Packages/> </AuthProvider>} path="/packages" />
           <Route element={<AuthProvider> <h1>This is profile</h1> </AuthProvider>} path="/profile/:id" />
           <Route element={ <Login/> } path="/login" />
           <Route element={ <Register/> } path="/register" />

@@ -2,7 +2,8 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from datetime import datetime, timedelta
+from api.models import db, User, Package
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -43,3 +44,25 @@ def handle_login():
     if user and bcrypt.check_password_hash(user.password, body['password']):
         return jsonify(user.serialize()), 200
     return jsonify({"msg": "Invalid email or password"}), 400
+
+@api.route('/packages/<int:user_id>', methods=['POST', 'GET'])
+def handle_packages(user_id):
+    if request.method == 'GET':
+        packages = Package.query.filter_by(user_id=user_id)
+        packages = list(map(lambda x: x.serialize(), packages))
+        return jsonify(packages), 200
+    if request.method == 'POST':
+        body = request.get_json()
+        package = Package(
+            user_id=user_id,
+            price=body['price'],
+            total_sessions=body['totalSessions'],
+            used_sessions=0,
+            purchase_date=datetime.now(),
+            expiration_date=datetime.now() + timedelta(days=body['packageDuration']),
+            is_paid=False,
+            is_active=True)
+        db.session.add(package)
+        db.session.commit()
+        return jsonify(package.serialize()), 200
+    
