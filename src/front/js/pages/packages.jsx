@@ -39,7 +39,10 @@ export const Packages = () => {
         }
     };
 
-    function buyPackage(packageName) {
+    function buyPackage(e) {
+        const packageName = e.target.id;
+        console.log(packageName);
+        console.log("event", e.target);
         const url = process.env.BACKEND_URL + "/api/packages/" + user.id;
         const body = {
             price: packages[packageName].price,
@@ -83,7 +86,7 @@ export const Packages = () => {
                             <p className="card-text m-0">{packages.Bronze.packageDuration} days duration</p>
                             <p className="card-text m-0">{packages.Bronze.description}</p>
                             <p className="card-text m-0">{packages.Bronze.realPrice}</p>
-                            <button className="btn btn-primary w-100 m-1" onClick={buyPackage("Bronze") }>Buy</button>
+                            <button className="btn btn-primary w-100 m-1" id="Bronze" onClick={(e) => buyPackage(e)}>Buy</button>
                         </div>
                     </div>
                     <div className="card m-1" style={{width: "20rem"}}>
@@ -94,7 +97,7 @@ export const Packages = () => {
                             <p className="card-text m-0">{packages.Silver.packageDuration} days duration</p>
                             <p className="card-text m-0">{packages.Silver.description}</p>
                             <p className="card-text m-0">{packages.Silver.realPrice}</p>
-                            <button className="btn btn-primary w-100 m-1" onClick={buyPackage("Silver")}>Buy</button>
+                            <button className="btn btn-primary w-100 m-1" id="Silver" onClick={(e) => buyPackage(e)}>Buy</button>
                         </div>
                     </div>
                 </div>
@@ -107,7 +110,7 @@ export const Packages = () => {
                             <p className="card-text m-0">{packages.Gold.packageDuration} days duration</p>
                             <p className="card-text m-0">{packages.Gold.description}</p>
                             <p className="card-text m-0">{packages.Gold.realPrice}</p>
-                            <button className="btn btn-primary w-100 m-1" onClick={buyPackage("Gold")}>Buy</button>
+                            <button className="btn btn-primary w-100 m-1" id="Gold" onClick={(e) => buyPackage(e)}>Buy</button>
                         </div>
                     </div>
                     <div className="card m-1" style={{width: "20rem"}}>
@@ -118,7 +121,7 @@ export const Packages = () => {
                             <p className="card-text m-0">{packages.Platinum.packageDuration} days duration</p>
                             <p className="card-text m-0">{packages.Platinum.description}</p>
                             <p className="card-text m-0">{packages.Platinum.realPrice}</p>
-                            <button className="btn btn-primary w-100 m-1" onClick={buyPackage("Platinum")}>Buy</button>
+                            <button className="btn btn-primary w-100 m-1" id="Platinum" onClick={(e) => buyPackage(e)}>Buy</button>
                         </div>
                     </div>
                 </div>
