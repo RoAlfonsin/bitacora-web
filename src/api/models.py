@@ -63,10 +63,7 @@ class Reservation(db.Model):
             "timeSlot": self.time_slot,
             "type": self.type,
             "date": self.date,
-            "isReserved": self.is_reserved,
-            "isPaid": self.is_paid,
             "userId": self.user_id,
-            "officeId": self.office_id,
             "packageId": self.package_id
         }
     

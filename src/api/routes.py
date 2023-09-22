@@ -81,6 +81,24 @@ def handle_package(package_id):
 def handle_new_reservation():
     if request.method == 'POST':
         body = request.get_json()
+        # check if there is no package and create one
+        if body['packageId'] == -1:
+            package = Package(
+                user_id=body['userId'],
+                price=150,
+                total_sessions=1,
+                used_sessions=0,
+                purchase_date=datetime.now(),
+                expiration_date=datetime.now() + timedelta(days=1),
+                is_paid=False,
+                is_active=True)
+            db.session.add(package)
+            db.session.commit()
+            body['packageId'] = package.id
+        # remove session from package
+        package = Package.query.get(body['packageId'])
+        package.used_sessions += 1
+        db.session.commit()
         reservation = Reservation(
             time_slot=body['timeSlot'],
             type=body['type'],

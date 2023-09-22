@@ -20,6 +20,7 @@ export const Reservations = () => {
         let utcDate = dateFormatted.getTime() + dateFormatted.getTimezoneOffset() * 60000;
         dateFormatted = new Date(utcDate + 3600000 * 2);
         console.log("dateFormatted", dateFormatted);
+        let packageId = packageToUse
         if (type === "" || date === "" || timeSlot === "") {
             alert("All fields are required");
             return;
@@ -33,18 +34,19 @@ export const Reservations = () => {
             return;
         }
         for (let element of packages) {
-            if (element.type === type && element.usedSessions < element.totalSessions && element.expirationDate > dateFormatted) {
-                setPackageToUse(element.id);
+            let expirationDate = new Date(element.expirationDate);
+            if (element.usedSessions < element.totalSessions && expirationDate > dateFormatted) {
+                packageId = element.id;
                 break;
             }
         }
-        if (packageToUse === null) {
-            setPackageToUse(-1);
+        if (packageId === null) {
+            packageId = -1;
         }
         const url = process.env.BACKEND_URL + "/api/new-reservation";
         const body = {
             userId: user.id,
-            packageId: packageToUse,
+            packageId: packageId,
             type: type,
             date: dateFormatted,
             timeSlot: timeSlot,
