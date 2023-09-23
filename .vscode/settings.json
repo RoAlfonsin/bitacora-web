@@ -7,5 +7,8 @@
     "cSpell.words": [
         "Bitacora",
         "jsonify"
-    ]
+    ],
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    }
 }

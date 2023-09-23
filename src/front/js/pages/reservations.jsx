@@ -9,6 +9,7 @@ export const Reservations = () => {
     const [type, setType] = useState("psychology");
     const [date, setDate] = useState(new Date());
     const [timeSlot, setTimeSlot] = useState(12);
+    const [patientName, setPatientName] = useState("");
     const [packages, setPackages] = useState([]);
     const [packageToUse, setPackageToUse] = useState(null);
     const user = store.currentUser;
@@ -50,6 +51,7 @@ export const Reservations = () => {
             type: type,
             date: dateFormatted,
             timeSlot: timeSlot,
+            patientName: patientName,
         };
         const options = {
             method: "POST",
@@ -134,6 +136,18 @@ export const Reservations = () => {
                                 <option value="20">20:00</option>
                                 <option value="21">21:00</option>
                             </select>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="patientName" className="form-label">
+                                Patient Name
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="patientName"
+                                value={patientName}
+                                onChange={(e) => setPatientName(e.target.value)}
+                            />
                         </div>
                         <div className="d-grid gap-2">
                             <button

@@ -25,8 +25,8 @@ export const Login = () => {
         fetch(url, options)
             .then((res) => res.json())
             .then((data) => {
-                if (data.errors) {
-                    alert(data.errors);
+                if (data.msg == 'Invalid email or password') {
+                    alert('Invalid email or password');
                 } else {
                     actions.setUser(data);
                     alert("User logged in");

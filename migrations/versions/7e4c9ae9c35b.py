@@ -1,6 +1,6 @@
 """empty message
 
-Revision ID: e5f48af77cd0
+Revision ID: 7e4c9ae9c35b
 Revises: 
 Create Date: 2023-09-18 22:42:20.418028
 
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e5f48af77cd0'
+revision = '7e4c9ae9c35b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,5 +33,5 @@ def downgrade():
     op.drop_table('reservation')
     op.drop_table('package')
     op.drop_table('user')
-    op.drop_table('office')
+    
     # ### end Alembic commands ###

@@ -5,6 +5,7 @@ import { BackendURL } from "./component/backendURL";
 import { Navbar } from "./component/navbar.jsx";
 import { AuthProvider } from "./component/authProvider.jsx";
 import { Home } from "./pages/home";
+import { Calendar } from "./pages/calendar.jsx";
 import { Packages } from "./pages/packages.jsx";
 import { Reservations } from "./pages/reservations.jsx";
 import { Register } from "./pages/register.jsx";
@@ -24,12 +25,12 @@ const Layout = () => {
         <Navbar />
         <Routes>
           <Route element={<AuthProvider> <Home /> </AuthProvider>} path="/" />
-          <Route element={<AuthProvider> <h1>This is calendar</h1> </AuthProvider>} path="/calendar" />
-          <Route element={<AuthProvider> <Reservations/> </AuthProvider>} path="/reservations" />
-          <Route element={<AuthProvider> <Packages/> </AuthProvider>} path="/packages" />
+          <Route element={<AuthProvider> <Calendar /> </AuthProvider>} path="/calendar" />
+          <Route element={<AuthProvider> <Reservations /> </AuthProvider>} path="/reservations" />
+          <Route element={<AuthProvider> <Packages /> </AuthProvider>} path="/packages" />
           <Route element={<AuthProvider> <h1>This is profile</h1> </AuthProvider>} path="/profile/:id" />
-          <Route element={ <Login/> } path="/login" />
-          <Route element={ <Register/> } path="/register" />
+          <Route element={<Login />} path="/login" />
+          <Route element={<Register />} path="/register" />
           <Route element={<AuthProvider> <h1>This is history</h1> </AuthProvider>} path="/history" />
           <Route element={<AuthProvider> <h1>This is payments</h1> </AuthProvider>} path="/payments" />
           <Route element={<AuthProvider> <h1>This is documents</h1> </AuthProvider>} path="/documents" />
