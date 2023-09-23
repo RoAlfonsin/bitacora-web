@@ -51,6 +51,7 @@ class Reservation(db.Model):
     time_slot = db.Column(db.Integer, unique=False, nullable=False)
     type = db.Column(db.String(120), unique=False, nullable=False)
     date = db.Column(db.DateTime, unique=False, nullable=False)
+    patient_name = db.Column(db.String(120), unique=False, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     package_id = db.Column(db.Integer, db.ForeignKey('package.id'), nullable=False)
 
@@ -62,7 +63,8 @@ class Reservation(db.Model):
             "id": self.id,
             "timeSlot": self.time_slot,
             "type": self.type,
-            "date": self.date,
+            "date": self.date.strftime("%A %d, %B %Y") ,
+            "patientName": self.patient_name,
             "userId": self.user_id,
             "packageId": self.package_id
         }

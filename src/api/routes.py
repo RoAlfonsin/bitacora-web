@@ -104,7 +104,27 @@ def handle_new_reservation():
             type=body['type'],
             date=body['date'],
             user_id=body['userId'],
-            package_id=body['packageId'])
+            package_id=body['packageId'],
+            patient_name=body['patientName'])
         db.session.add(reservation)
         db.session.commit()
         return jsonify(reservation.serialize()), 200
+    
+@api.route('/reservations/<int:user_id>', methods=['GET'])
+def handle_reservations(user_id):
+    if request.method == 'GET':
+        reservations = Reservation.query.filter_by(user_id=user_id)
+        reservations = reservations.order_by(Reservation.date, Reservation.time_slot)
+        reservations = list(map(lambda x: x.serialize(), reservations))
+        return jsonify(reservations), 200
+    
+@api.route('/reservations/<int:reservation_id>', methods=['DELETE'])
+def handle_delete_reservation(reservation_id):
+    if request.method == 'DELETE':
+        reservation = Reservation.query.get(reservation_id)
+        #Restore session for deleted reservation
+        package = Package.query.get(reservation.package_id)
+        package.used_sessions -= 1
+        db.session.delete(reservation)
+        db.session.commit()
+        return jsonify({"msg": "Reservation deleted"}), 200
