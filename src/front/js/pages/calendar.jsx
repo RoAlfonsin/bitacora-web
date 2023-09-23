@@ -11,7 +11,6 @@ export const Calendar = () => {
         const url = process.env.BACKEND_URL + "/api/reservations/" + user.id;
         const response = await fetch(url);
         const data = await response.json();
-        console.log("data", data);
         let elementToDelete = [];
         for (let i = 0; i < data.length; i++) {
             let reservationDay = data[i].reservationDay;
@@ -42,7 +41,6 @@ export const Calendar = () => {
         };
         const response = await fetch(url, options);
         const data = await response.json();
-        console.log("data", data);
         getReservations();
     }
 
@@ -64,7 +62,7 @@ export const Calendar = () => {
                             {reservations.map((reservation, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{reservation.date}</td>
+                                        <td>{reservation.reservationDay}</td>
                                         <td>{reservation.timeSlot}:00</td>
                                         <td>{reservation.patientName}</td>
                                         <td><button className="btn btn-danger btn-sm" onClick={() => deleteReservation(reservation.id)}>X</button></td>

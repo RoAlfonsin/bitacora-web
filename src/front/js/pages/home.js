@@ -1,12 +1,9 @@
 //Creating buttons to navigate from home
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
-
 	return (
 		<div className="container border">
 			<div className="row m-2">
@@ -45,9 +42,7 @@ export const Home = () => {
 					</Link>
 				</div>
 				<div className="col-6 d-grid gap-5">
-					<Link to={"/profile"}>
-						<button className="btn btn-info w-100 bg-info-subtle">Profile</button>
-					</Link>
+
 				</div>
 			</div>
 		</div>

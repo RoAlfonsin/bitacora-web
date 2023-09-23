@@ -1,7 +1,6 @@
 //Create a table with a list of reservations for specific Package
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Context } from "../store/appContext";
 
 export const DetailPackage = () => {
     const [reservations, setReservations] = useState([]);
@@ -10,10 +9,8 @@ export const DetailPackage = () => {
 
     async function getReservationsPackages() {
         const url = process.env.BACKEND_URL + "/api/reservations-package/" + packId;
-        console.log("url", url);
         const response = await fetch(url);
         const data = await response.json();
-        console.log("data", data);
         setReservations(data);
     }
 

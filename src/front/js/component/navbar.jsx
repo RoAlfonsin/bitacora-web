@@ -1,13 +1,11 @@
 import React from "react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
-	console.log("store.currentUser",store.currentUser);
 	let user = store.currentUser;
-	console.log("user",user);
 	const navigate = useNavigate();
 
 	function handleLogout() {
@@ -20,7 +18,7 @@ export const Navbar = () => {
 		if (user == null) {
 			return (
 				<li className="nav-item">
-					<Link className="nav-link" to="/login">
+					<Link className="nav-link p-0" to="/login">
 						<button className="btn btn-primary">Login</button>
 					</Link>
 				</li>
@@ -67,11 +65,6 @@ export const Navbar = () => {
 						<li className="nav-item">
 							<Link className="nav-link" to="/packages">
 								Packages
-							</Link>
-						</li>
-						<li className="nav-item">
-							<Link className="nav-link" to="/profile">
-								Profile
 							</Link>
 						</li>
 						<li className="nav-item">
