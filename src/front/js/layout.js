@@ -7,6 +7,8 @@ import { AuthProvider } from "./component/authProvider.jsx";
 import { Home } from "./pages/home";
 import { Calendar } from "./pages/calendar.jsx";
 import { History } from "./pages/history.jsx";
+import { Payments } from "./pages/payments.jsx";
+import { DetailPackage } from "./pages/detailPackage.jsx";
 import { Packages } from "./pages/packages.jsx";
 import { Reservations } from "./pages/reservations.jsx";
 import { Register } from "./pages/register.jsx";
@@ -33,8 +35,8 @@ const Layout = () => {
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
           <Route element={<AuthProvider> <History /> </AuthProvider>} path="/history" />
-          <Route element={<AuthProvider> <h1>This is payments</h1> </AuthProvider>} path="/payments" />
-          <Route element={<AuthProvider> <h1>This is documents</h1> </AuthProvider>} path="/documents" />
+          <Route element={<AuthProvider> <Payments /> </AuthProvider>} path="/payments" />
+          <Route element={<AuthProvider> <DetailPackage /> </AuthProvider>} path="/details/:packId" />
 
         </Routes>
         {/*Footer*/}
