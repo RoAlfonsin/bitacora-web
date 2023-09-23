@@ -17,10 +17,17 @@ export const Reservations = () => {
 
     async function submitHandler(e) {
         e.preventDefault();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         let dateFormatted = new Date(date);
         let utcDate = dateFormatted.getTime() + dateFormatted.getTimezoneOffset() * 60000;
         dateFormatted = new Date(utcDate + 3600000 * 2);
         console.log("dateFormatted", dateFormatted);
+        console.log("today", today);
+        if (dateFormatted < today) {
+            alert("You can't make a reservation for a past date");
+            return;
+        }
         let packageId = packageToUse
         if (type === "" || date === "" || timeSlot === "") {
             alert("All fields are required");
@@ -68,7 +75,7 @@ export const Reservations = () => {
                     navigate("/");
                 }
             }
-        );
+            );
     }
 
 
@@ -81,7 +88,7 @@ export const Reservations = () => {
     return (
         <div className="container">
             <div className="row">
-            <div className="col-12 col-md-6 offset-md-3">
+                <div className="col-12 col-md-6 offset-md-3">
                     <h1 className="text-center">Reservation</h1>
                     <form>
                         <div className="mb-3">

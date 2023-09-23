@@ -63,7 +63,8 @@ class Reservation(db.Model):
             "id": self.id,
             "timeSlot": self.time_slot,
             "type": self.type,
-            "date": self.date.strftime("%A %d, %B %Y") ,
+            "date": self.date.strftime("%A %d, %B %Y"),
+            "reservationDay": self.date.strftime("%m-%d-%-y"),
             "patientName": self.patient_name,
             "userId": self.user_id,
             "packageId": self.package_id

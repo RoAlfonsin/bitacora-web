@@ -41,12 +41,12 @@ export const Home = () => {
 			<div className="row m-2">
 				<div className="col-6 d-grid gap-5">
 					<Link to={"/payments"}>
-						<button className="btn btn-info w-100 bg-info-subtle">Calendar</button>
+						<button className="btn btn-info w-100 bg-info-subtle">Payments</button>
 					</Link>
 				</div>
 				<div className="col-6 d-grid gap-5">
-					<Link to={"/reservations"}>
-						<button className="btn btn-info w-100 bg-info-subtle">Payments</button>
+					<Link to={"/profile"}>
+						<button className="btn btn-info w-100 bg-info-subtle">Profile</button>
 					</Link>
 				</div>
 			</div>
