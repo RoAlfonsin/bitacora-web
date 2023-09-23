@@ -41,8 +41,6 @@ export const Packages = () => {
 
     function buyPackage(e) {
         const packageName = e.target.id;
-        console.log(packageName);
-        console.log("event", e.target);
         const url = process.env.BACKEND_URL + "/api/packages/" + user.id;
         const body = {
             price: packages[packageName].price,
@@ -59,10 +57,17 @@ export const Packages = () => {
         fetch(url, options)
             .then((response) => {
                 if (response.status === 200) {
-                    alert("Package purchased successfully");
-                    navigate("/calendar");
+                    const modal = document.getElementById('success');
+                    const modalOptions = {
+                        keyboard: false,
+                        backdrop: 'static'
+                    };
+                    const modalInstance = new bootstrap.Modal(modal, modalOptions);
+                    modalInstance.show();
                 } else {
-                    alert("Error purchasing package");
+                    const modal = document.getElementById('invalid');
+                    const modalInstance = new bootstrap.Modal(modal);
+                    modalInstance.show();
                 }
             })
             .catch((error) => console.log(error));
@@ -78,7 +83,7 @@ export const Packages = () => {
             </div>
             <div className="row">
                 <div className="col-12 d-flex justify-content-around flex-row m-2">
-                    <div className="card m-1" style={{width: "20rem"}}>
+                    <div className="card m-1" style={{ width: "20rem" }}>
                         <div className="card-body bg-primary-subtle">
                             <h4 className="card-title">Bronze</h4>
                             <h5 className="card-subtitle mb-2 text-muted">${packages.Bronze.price}</h5>
@@ -89,7 +94,7 @@ export const Packages = () => {
                             <button className="btn btn-primary w-100 m-1" id="Bronze" onClick={(e) => buyPackage(e)}>Buy</button>
                         </div>
                     </div>
-                    <div className="card m-1" style={{width: "20rem"}}>
+                    <div className="card m-1" style={{ width: "20rem" }}>
                         <div className="card-body bg-primary-subtle">
                             <h4 className="card-title">Silver</h4>
                             <h5 className="card-subtitle mb-2 text-muted">${packages.Silver.price}</h5>
@@ -102,7 +107,7 @@ export const Packages = () => {
                     </div>
                 </div>
                 <div className="col-12 d-flex justify-content-around flex-row m-2">
-                    <div className="card m-1" style={{width: "20rem"}}>
+                    <div className="card m-1" style={{ width: "20rem" }}>
                         <div className="card-body bg-primary-subtle">
                             <h4 className="card-title">Gold</h4>
                             <h5 className="card-subtitle mb-2 text-muted">${packages.Gold.price}</h5>
@@ -113,7 +118,7 @@ export const Packages = () => {
                             <button className="btn btn-primary w-100 m-1" id="Gold" onClick={(e) => buyPackage(e)}>Buy</button>
                         </div>
                     </div>
-                    <div className="card m-1" style={{width: "20rem"}}>
+                    <div className="card m-1" style={{ width: "20rem" }}>
                         <div className="card-body bg-primary-subtle">
                             <h4 className="card-title">Platinum</h4>
                             <h5 className="card-subtitle mb-2 text-muted">${packages.Platinum.price}</h5>
@@ -122,6 +127,34 @@ export const Packages = () => {
                             <p className="card-text m-0">{packages.Platinum.description}</p>
                             <p className="card-text m-0">{packages.Platinum.realPrice}</p>
                             <button className="btn btn-primary w-100 m-1" id="Platinum" onClick={(e) => buyPackage(e)}>Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="invalid">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Error</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <p>Error purchasing package</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="success">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Success</h5>
+                        </div>
+                        <div className="modal-body">
+                            <p>Package purchased successfully</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => navigate("/")}>Continue</button>
                         </div>
                     </div>
                 </div>

@@ -41,6 +41,8 @@ class Package(db.Model):
             "usedSessions": self.used_sessions,
             "purchaseDate": self.purchase_date,
             "expirationDate": self.expiration_date,
+            "purchaseDayReadable": self.purchase_date.strftime("%m-%d-%-y"),
+            "expirationDayReadable": self.expiration_date.strftime("%m-%d-%-y"),
             "isPaid": self.is_paid,
             "isActive": self.is_active,
             "userId": self.user_id

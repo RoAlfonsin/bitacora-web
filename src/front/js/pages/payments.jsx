@@ -12,7 +12,6 @@ export const Payments = () => {
         const url = process.env.BACKEND_URL + "/api/packages/" + user.id;
         const response = await fetch(url);
         const data = await response.json();
-        console.log("data", data);
         setPackages(data);
     }
 
@@ -25,35 +24,27 @@ export const Payments = () => {
             <div className="row">
                 <div className="col-12">
                     <h1>My payments</h1>
-                    <table className="table table-striped">
-                        <thead>
+                    <table className="table table-striped table-sm table-responsive fixed-table-body">
+                        <thead className="fs-6">
                             <tr>
-                                <th scope="col">Package</th>
+                                <th scope="col">Id</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Used Sessions</th>
-                                <th scope="col">Total Sessions</th>
-                                <th scope="col">Purchase Date</th>
-                                <th scope="col">Expiration Date</th>
+                                <th scope="col">Hours Left</th>
+                                <th scope="col">Acquired</th>
+                                <th scope="col">Expires</th>
                                 <th scope="col">Paid</th>
-                                <th scope="col">Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             {packages.map((element, index) => {
-                                const purchaseDateRemoveIndex = element.purchaseDate.indexOf(":");
-                                const expirationDateRemoveIndex = element.expirationDate.indexOf(":");
-                                const purchaseDate = element.purchaseDate.slice(0, purchaseDateRemoveIndex - 2);
-                                const expirationDate = element.expirationDate.slice(0, expirationDateRemoveIndex - 2);
                                 return (
                                     <tr key={index}>
-                                        <td>{element.id}</td>
-                                        <td>$ {element.price}</td>
-                                        <td>{element.usedSessions}</td>
-                                        <td>{element.totalSessions}</td>
-                                        <td>{purchaseDate}</td>
-                                        <td>{expirationDate}</td>
+                                        <td><Link to={"/details/:" + element.id}>{element.id}</Link></td>
+                                        <td>${element.price}</td>
+                                        <td className="text-center">{element.totalSessions - element.usedSessions}</td>
+                                        <td>{element.purchaseDayReadable}</td>
+                                        <td>{element.expirationDayReadable}</td>
                                         <td>{String(element.isPaid)}</td>
-                                        <td><Link to={"/details/:" + element.id}>Details</Link></td>
                                     </tr>
                                 );
                             })}

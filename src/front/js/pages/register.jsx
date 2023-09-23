@@ -10,12 +10,10 @@ export const Register = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        if (password !== passwordVerify) {
-            alert("Passwords don't match");
-            return;
-        }
-        if (email === "" || password === "") {
-            alert("Email and password are required");
+        if (password !== passwordVerify || email === "" || password === "") {
+            const modal = document.getElementById('invalid');
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
             return;
         }
         const url = process.env.BACKEND_URL + "/api/users";
@@ -31,8 +29,13 @@ export const Register = () => {
                 if (data.errors) {
                     alert(data.errors);
                 } else {
-                    alert("User created");
-                    navigate("/login");
+                    const modal = document.getElementById('success');
+                    const modalOptions = {
+                        keyboard: false,
+                        backdrop: 'static'
+                    };
+                    const modalInstance = new bootstrap.Modal(modal, modalOptions);
+                    modalInstance.show();
                 }
             });
     }
@@ -90,6 +93,34 @@ export const Register = () => {
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="invalid">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Error</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <p>Error with email or password</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="success">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Success</h5>
+                        </div>
+                        <div className="modal-body">
+                            <p>User created</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => navigate("/login")}>Continue</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

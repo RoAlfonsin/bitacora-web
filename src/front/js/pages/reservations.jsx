@@ -13,7 +13,6 @@ export const Reservations = () => {
     const [packages, setPackages] = useState([]);
     const [packageToUse, setPackageToUse] = useState(null);
     const user = store.currentUser;
-    console.log("packages", packages);
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -22,23 +21,29 @@ export const Reservations = () => {
         let dateFormatted = new Date(date);
         let utcDate = dateFormatted.getTime() + dateFormatted.getTimezoneOffset() * 60000;
         dateFormatted = new Date(utcDate + 3600000 * 2);
-        console.log("dateFormatted", dateFormatted);
-        console.log("today", today);
         if (dateFormatted < today) {
-            alert("You can't make a reservation for a past date");
+            const modal = document.getElementById('pastDate');
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
             return;
         }
         let packageId = packageToUse
-        if (type === "" || date === "" || timeSlot === "") {
-            alert("All fields are required");
+        if (type === "" || date === "" || timeSlot === "" || patientName === "") {
+            const modal = document.getElementById('missingFields');
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
             return;
         }
         if (dateFormatted.getDay() === 0) {
-            alert("Sundays are closed");
+            const modal = document.getElementById('sunday');
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
             return;
         }
         if (dateFormatted.getDay() === 6 && timeSlot > 13) {
-            alert("Saturdays after 13:00 are closed");
+            const modal = document.getElementById('saturday');
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
             return;
         }
         for (let element of packages) {
@@ -71,8 +76,9 @@ export const Reservations = () => {
                 if (data.errors) {
                     alert("There is no available office for this date and time");
                 } else {
-                    alert("Reservation created");
-                    navigate("/");
+                    const modal = document.getElementById('success');
+                    const modalInstance = new bootstrap.Modal(modal);
+                    modalInstance.show();
                 }
             }
             );
@@ -166,6 +172,73 @@ export const Reservations = () => {
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="sunday">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Error</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <p>Sundays are closed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="saturday">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Error</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <p>Saturdays after 13:00 are closed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="missingFields">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Error</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <p>All fields are required</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="pastDate">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Error</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <p>You can't make a reservation for a past date</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal" tabIndex="-1" id="success">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Success</h5>
+                        </div>
+                        <div className="modal-body">
+                            <p>Reservation created</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => navigate("/")}>Continue</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

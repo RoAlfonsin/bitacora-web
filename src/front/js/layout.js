@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BackendURL } from "./component/backendURL";
 
 import { Navbar } from "./component/navbar.jsx";
@@ -31,7 +31,6 @@ const Layout = () => {
           <Route element={<AuthProvider> <Calendar /> </AuthProvider>} path="/calendar" />
           <Route element={<AuthProvider> <Reservations /> </AuthProvider>} path="/reservations" />
           <Route element={<AuthProvider> <Packages /> </AuthProvider>} path="/packages" />
-          <Route element={<AuthProvider> <h1>This is profile</h1> </AuthProvider>} path="/profile/:id" />
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
           <Route element={<AuthProvider> <History /> </AuthProvider>} path="/history" />
@@ -39,7 +38,6 @@ const Layout = () => {
           <Route element={<AuthProvider> <DetailPackage /> </AuthProvider>} path="/details/:packId" />
 
         </Routes>
-        {/*Footer*/}
       </BrowserRouter>
     </>
   );
