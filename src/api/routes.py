@@ -49,6 +49,7 @@ def handle_login():
 def handle_packages(user_id):
     if request.method == 'GET':
         packages = Package.query.filter_by(user_id=user_id)
+        packages = packages.order_by(Package.id)
         packages = list(map(lambda x: x.serialize(), packages))
         return jsonify(packages), 200
     if request.method == 'POST':
@@ -128,3 +129,11 @@ def handle_delete_reservation(reservation_id):
         db.session.delete(reservation)
         db.session.commit()
         return jsonify({"msg": "Reservation deleted"}), 200
+
+@api.route('/reservations-package/<int:package_id>', methods=['GET'])
+def handle_reservation_package(package_id):
+    if request.method == 'GET':
+        reservations = Reservation.query.filter_by(package_id=package_id)
+        reservations = reservations.order_by(Reservation.date, Reservation.time_slot)
+        reservations = list(map(lambda x: x.serialize(), reservations))
+        return jsonify(reservations), 200
