@@ -6,6 +6,7 @@ import { Navbar } from "./component/navbar.jsx";
 import { AuthProvider } from "./component/authProvider.jsx";
 import { Home } from "./pages/home";
 import { Calendar } from "./pages/calendar.jsx";
+import { History } from "./pages/history.jsx";
 import { Packages } from "./pages/packages.jsx";
 import { Reservations } from "./pages/reservations.jsx";
 import { Register } from "./pages/register.jsx";
@@ -31,7 +32,7 @@ const Layout = () => {
           <Route element={<AuthProvider> <h1>This is profile</h1> </AuthProvider>} path="/profile/:id" />
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
-          <Route element={<AuthProvider> <h1>This is history</h1> </AuthProvider>} path="/history" />
+          <Route element={<AuthProvider> <History /> </AuthProvider>} path="/history" />
           <Route element={<AuthProvider> <h1>This is payments</h1> </AuthProvider>} path="/payments" />
           <Route element={<AuthProvider> <h1>This is documents</h1> </AuthProvider>} path="/documents" />
 

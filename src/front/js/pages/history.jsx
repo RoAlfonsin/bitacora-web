@@ -1,8 +1,8 @@
-//Create a list of reservations for the current user, with button to delete them
+//Create a list of past reservations
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 
-export const Calendar = () => {
+export const History = () => {
     const { store, actions } = useContext(Context);
     const [user, setUser] = useState(store.currentUser);
     const [reservations, setReservations] = useState([]);
@@ -18,7 +18,7 @@ export const Calendar = () => {
             reservationDay = new Date(reservationDay);
             let today = new Date();
             today.setHours(0, 0, 0, 0);
-            if (reservationDay < today) {
+            if (reservationDay > today) {
                 elementToDelete.push(i);
             }
         }
@@ -57,7 +57,7 @@ export const Calendar = () => {
                                 <th scope="col">Date</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Patient Name</th>
-                                <th scope="col">Cancel</th>
+                                <th scope="col">Package</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,7 +67,7 @@ export const Calendar = () => {
                                         <td>{reservation.date}</td>
                                         <td>{reservation.timeSlot}:00</td>
                                         <td>{reservation.patientName}</td>
-                                        <td><button className="btn btn-danger btn-sm" onClick={() => deleteReservation(reservation.id)}>X</button></td>
+                                        <td>{reservation.packageId}</td>
                                     </tr>
                                 );
                             }
